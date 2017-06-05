@@ -3,11 +3,12 @@ package sim900
 import (
 	"errors"
 	"fmt"
-	"github.com/argandas/serial"
 	"log"
 	"os"
 	"strings"
 	"time"
+
+	"github.com/dennismao/serial"
 )
 
 /*******************************************************************************************
