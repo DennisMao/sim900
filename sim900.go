@@ -156,3 +156,21 @@ func (s *SIM900) CheckSMSTextMode(mode int) error {
 	_, err := s.wait4response(cmd, CMD_OK, time.Second*1)
 	return err
 }
+
+// SetSMSCodeMode selects SMS Message Code Format ('gsm' = GSM format, 'ucs2' = UCS2 format)
+func (s *SIM900) CheckSMSCodeMode(mode string) error {
+	switch mode {
+	case "gsm":
+		_, err := s.wait4response(cmd, CMD_CSMP_GSM, time.Second*1)
+		_, err = s.wait4response(cmd, CMD_CSCS_GSM, time.Second*1)
+		break
+	case "ucs2":
+		_, err := s.wait4response(cmd, CMD_CSMP_UCS2, time.Second*1)
+		_, err = s.wait4response(cmd, CMD_CSCS_UCS2, time.Second*1)
+		break
+	default:
+		errors.New("Error: undefined code mode")
+		break
+	}
+	return err
+}
