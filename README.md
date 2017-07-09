@@ -1,25 +1,29 @@
 # SIM900 Go's package
-This package uses a serialport to communicate with the SIM900 GSM Modem.
+本模块用于通过计算机串口实现与GSM电话模块之间的通讯，原作者[argandas](https://github.com/argandas),本版本在原作者基础上修复了短信经常发送失败问题，增加中文CS2短信发送支持和独立日志打印功能。
 
-## How to install
+## 如何安装
 
-- You'll need Golang v1.3+
-- SIM900 Package uses the [serial](https://github.com/argandas/serial) package in order to communicate with the modem via AT commands, you will need to install both SIM900 and serial packages.
+需要支持:
+-  Golang 1.4以上版本
+- SIM900模块是基于 [serial](https://github.com/DennisMao/serial) 模块上开发而来，因此需要先获取serial串口模块
 
+安装过程:
 ```bash
-go get github.com/argandas/serial  # installs the serial package
-go get github.com/argandas/sim900  # installs the SIM900 package
+go get github.com/DennisMao/serial  # installs the serial package
+go get github.com/DennisMao/sim900  # installs the SIM900 package
 ```
 
-## How to use
+## 如何使用
 
-- You'll need an available serial port, SIM900 boards usually works with 5V TTL signals so you can get a USB-to-Serial TTL converter, I recommend you to use the [FTDI Cable](https://www.sparkfun.com/products/9718) for this, but you can use any USB-to-Serial adapters there are plenty of them. 
-![SIM900: FTDI Cable](TBD)
+硬件准备:
+- USB转TTL 5V串口模块
+- USB转TTL 串口模块驱动
+- 在使用本程序前可通过串口调试助手测试连通情况
 
-- Connect carefuly your serialport to your SIM900 board.
-![SIM900: Connection diagram](TBD)
+软件准备:
+通过SIM900模块
 
-## Example code
+## 程序样例
 
 ```go
 package main
@@ -32,15 +36,15 @@ func main() {
 		panic(err)
 	}
 	defer gsm.Teardown()
-	phoneNumber := "XXXXXXXXXX" // The number to send the SMS
+	phoneNumber := "13711112222" // The number to send the SMS
 	gsm.SendSMS(phoneNumber, "Hello World!")
 }
 ```
 
-## Reference
+## 引用
 
-- List of available SIM900 commands can be found [here](http://wm.sim.com/upfile/2013424141114f.pdf).
-- For more information about available SIM900 methods please check godoc for this package.
+- SIM900支持的AT指令列表 [here](http://wm.sim.com/upfile/2013424141114f.pdf).
+- 更多的使用方法，可在godoc上查询本模块获取。
 
 Go explore!
 
